@@ -27,4 +27,3 @@ begin
 
 	PrintArray(A, ' ');
 end.
-
