@@ -3,16 +3,20 @@ unit Matrix2D;
 interface
 
 uses
+	SysUtils,
 	Strings;
 
 type 
 	Matrix = array of array of integer;
+	TIntDynArray = array of integer;
+
 
 procedure PrintArray(A: array of LongInt; sep: string = #10);
 procedure PrintArray(A: TStringDynArray; sep: string = #10);
 procedure Print2DMatrix(A: Matrix; sep: string = ' ');
 function Gen2DMatrix(n: integer = 3; RMax: integer = 10): Matrix;
 function SumArray(A: array of LongInt): integer;
+function StringToIntArray(S: string; sep: char = ' '): TIntDynArray;
 
 
 
@@ -73,6 +77,19 @@ begin
 	for i:=Low(A) to High(A) do
 		Inc(Accum, A[i]);
 	SumArray := Accum;
+end;
+
+function StringToIntArray(S: string; sep: char = ' '): TIntDynArray;
+var
+	Sx: TStringDynArray;
+	Res: TIntDynArray;
+	i: integer;
+begin
+	Sx := Split(S, sep);
+	SetLength(Res, Length(Sx));
+	for i:=0 to Length(Sx)-1 do
+		Res[i] := StrToInt(Sx[i]);
+	StringToIntArray := Res;
 end;
 
 
