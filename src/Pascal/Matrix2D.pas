@@ -4,6 +4,7 @@ interface
 
 uses
 	SysUtils,
+	Math,
 	Strings;
 
 type 
@@ -14,7 +15,7 @@ type
 procedure PrintArray(A: array of LongInt; sep: string = #10);
 procedure PrintArray(A: TStringDynArray; sep: string = #10);
 procedure Print2DMatrix(A: Matrix; sep: string = ' ');
-function Gen2DMatrix(n: integer = 3; RMax: integer = 10): Matrix;
+function Gen2DMatrix(m: integer = 3; n: integer = 0; RMax: integer = 10): Matrix;
 function SumArray(A: array of LongInt): integer;
 function StringToIntArray(S: string; sep: char = ' '): TIntDynArray;
 
@@ -36,10 +37,13 @@ end;
 
 procedure PrintArray(A: array of LongInt; sep: string = #10); overload;
 var
-	i: integer;
+	i, d: integer;
 begin
+	d := 1;
 	for i:=Low(A) to High(A) do
-		write(A[i], sep);
+		d := max(Length(IntToStr(A[i])), d);
+	for i:=Low(A) to High(A) do
+		write(A[i]:d, sep);
 	writeln('');
 end;
 
@@ -53,20 +57,22 @@ begin
 	end;
 end;
 
-function Gen2DMatrix(n: integer = 3; RMax: integer = 10): Matrix;
+function Gen2DMatrix(m: integer = 3; n: integer = 0; RMax: integer = 10): Matrix;
 var
-	M: Matrix;
+	Mx: Matrix;
 	i, j: integer;
 begin
+	if n = 0 then
+		n := m;
 	Randomize;
-	SetLength(M, n);
-	for i:=Low(M) to High(M) do
+	SetLength(Mx, n);
+	for i:=Low(Mx) to High(Mx) do
 	begin
-		SetLength(M[i], n);
-		for j:=Low(M[0]) to High(M[0]) do
-			M[i, j] := Random(RMax);
+		SetLength(Mx[i], m);
+		for j:=Low(Mx[0]) to High(Mx[0]) do
+			Mx[i, j] := Random(RMax);
 	end;
-	Gen2DMatrix := M;
+	Gen2DMatrix := Mx;
 end;
 
 function SumArray(A: array of LongInt): integer;
