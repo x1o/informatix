@@ -67,7 +67,7 @@ var
 	i: integer;
 begin
 	for i:=Low(A) to High(A) do
-		write(A[i], sep);
+		write(A[i]:0:2, sep);
 	writeln('');
 end;
 
