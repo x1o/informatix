@@ -1,7 +1,9 @@
 program FixBraces;
 
 var
-	S: string = '(1+2*(4-(55-4)-(42+4*(9+2-4/(2+5))-3)))';
+	// S: string = '(1+2*(4-(55-4)-(42+4*(9+2-4/(2+5))-3)))';
+	S: string = '((()(())))';
+	// {{()[()]}}
 	S_fixed: string;
 	i, lvl: integer;
 
@@ -14,20 +16,20 @@ begin
 				begin
 				Inc(lvl);
 				if lvl = 1 then
-					S_fixed[i] := S[i]
+					S_fixed[i] := '{'
 				else if lvl = 2 then
 					S_fixed[i] := '['
 				else if lvl >= 3 then
-					S_fixed[i] := '{';
+					S_fixed[i] := S[i];
 				end;
 			')':
 				begin
 				if lvl = 1 then
-					S_fixed[i] := S[i]
+					S_fixed[i] := '}'
 				else if lvl = 2 then
 					S_fixed[i] := ']'
 				else if lvl >= 3 then
-					S_fixed[i] := '}';
+					S_fixed[i] := S[i];
 				Dec(lvl);
 				end;
 			else

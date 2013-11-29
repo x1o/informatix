@@ -12,7 +12,8 @@ type
 	Graph = array of Point;
 
 var
-	S: string = 'We will not get into mouse input in detail, because that syntax differs from machine to machine.';
+	// S: string = 'We will not get into mouse input in detail, because that syntax differs from machine to machine.';
+	S: string = 'aa bb ccc e qqqq';
 	{ S: string = 'abc ab cd'; }
 	S_words: TStringDynArray;
 	Lx: array of integer;
