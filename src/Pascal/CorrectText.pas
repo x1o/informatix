@@ -1,3 +1,4 @@
+{ 12.5 }
 program CorrectText;
 
 var

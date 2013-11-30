@@ -14,12 +14,14 @@ function Hd(S: string): char;
 function Tl(S: string): string;
 function Precedes(S: string; T: string): boolean;
 procedure CapitalizeFirstWords(var S: string);
+function Reversed(S: string): string;
 
 
 
 implementation
 
-uses math;
+uses	Math,
+	SysUtils;
 
 function CountChar(S: string; TargChar: char = ' '): integer;
 var
@@ -131,6 +133,19 @@ begin
 		end;
 		i := i + 1;
 	end;
+end;
+
+function Reversed(S: string): string;
+var
+	T: string;
+	i: integer;
+begin
+	SetLength(T, Length(S));
+	for i := 1 to Length(S) do
+	begin
+		T[Length(S)+1-i] := S[i];
+	end;
+	Reversed := T;
 end;
 
 end.

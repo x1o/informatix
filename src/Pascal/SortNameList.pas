@@ -1,22 +1,22 @@
+{ 12.10 }
 program SortNameList;
 
 uses	Strings,
 	Matrix2D,
 	SysUtils;
 
-type
-	SA = array of string;
-
 var
 	{ F: file of string; }
 	F: text;
 	S: string;
-	NameDB: SA;
-	i: integer;
-	Names: SA;
+	NameDB: TStringDynArray;
+	Names: TStringDynArray;
 	name: string;
+	i: integer;
 
-function ArrayInsert(A: SA; idx: integer; S: string): SA;
+{ Ideally this would be a procedure,
+  but for unknown reason it doesn't work this way. }
+function ArrayInsert(A: TStringDynArray; idx: integer; S: string): TStringDynArray;
 var
 	i: integer;
 begin
