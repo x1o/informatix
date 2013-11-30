@@ -47,7 +47,7 @@ var
 begin
 	for i:=Low(A) to High(A) do
 		write(A[i], sep);
-	writeln('');
+	{ writeln(''); }
 end;
 
 procedure PrintArray(A: array of LongInt; sep: string = #10); overload;
