@@ -33,6 +33,9 @@ function LUDecomposition(A: Matrix): MatrixTuple;
 function Determinant(A: Matrix): real;
 function ForwardBackwardSubst(L: RealMatrix; U: RealMatrix; B: TRealDynArray): TRealDynArray;
 function Eye(n: integer): Matrix;
+function ConcatMatrix(A: RealMatrix; B: RealMatrix): RealMatrix;
+procedure ReduceRow(var A: RealMatrix; row: integer; by_row: integer; start: integer);
+function GaussElimination(A: RealMatrix; B: RealMatrix): RealMatrix;
 
 
 
@@ -387,6 +390,76 @@ begin
 	end;
 	Eye := I;
 end;
+
+function ConcatMatrix(A: RealMatrix; B: RealMatrix): RealMatrix;
+var
+	S: RealMatrix;
+	i, j, m, n: integer;
+begin
+	m := Length(A);
+	n := Length(A[0]);
+	InitMatrix(S, Length(A), Length(A[0]) + Length(B[0]));
+	for i:=0 to m-1 do
+	begin
+		for j:=0 to n-1 do
+			S[i][j] := A[i][j];
+		for j:=0 to Length(B[0])-1 do
+			S[i][n+j] := B[i][j]
+	end;
+	ConcatMatrix := S;
+end;
+
+procedure ReduceRow(var A: RealMatrix; row: integer; by_row: integer; start: integer);
+var
+	i: integer;
+	x: real;
+begin
+	x := -1 * A[row][start] / A[by_row][start];
+	for i:=start to Length(A[0])-1 do
+		A[row][i] := x * A[by_row][i] + A[row][i];
+end;
+
+function GaussElimination(A: RealMatrix; B: RealMatrix): RealMatrix;
+var
+	S: RealMatrix;	{ matrix A augmented with B }
+	i, j, k, m, n: integer;
+	free_sum: real;
+begin
+	S := ConcatMatrix(A, B);
+	m := Length(A);
+	n := Length(A[0]);
+
+	{ Forward phase }
+
+	for i:=m-1 downto 1 do
+	begin
+		for j:=0 to n-1-(m-i) do
+		begin
+			if S[i][j] <> 0 then
+				ReduceRow(S, i, i-1, j);
+			if j < n-1-(m-i) then
+				ReduceRow(S, i-1, i-2, j);
+		end;
+	end;
+
+	{ Backward phase }
+
+	for i:=m-1 downto 0 do
+	begin
+		k := n-(m-i);
+		free_sum := 0;
+		for j := k+1 to n-1 do
+			free_sum := free_sum + S[j][Length(S[0])-1] * S[i][j];
+		S[i][Length(S[0])-1] := (S[i][Length(S[0])-1] - free_sum) / S[i][k];
+	end;
+
+	for i:=0 to Length(B)-1 do
+		B[i][0] := S[i][Length(S[0])-1];
+
+	GaussElimination := B;
+end;
+
+
 
 { initialization }
 

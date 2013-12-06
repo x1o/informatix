@@ -15,7 +15,7 @@ var
 	i: integer;
 
 { Ideally this would be a procedure,
-  but for unknown reason it doesn't work this way. }
+  but for an unknown reason it doesn't work this way. }
 function ArrayInsert(A: TStringDynArray; idx: integer; S: string): TStringDynArray;
 var
 	i: integer;
@@ -37,17 +37,18 @@ begin
 	{ end; }
 	{ close(F); }
 
-	SetLength(NameDB, 5);
+	SetLength(NameDB, 6);
 	NameDB[0] := 'Smith John';
 	NameDB[1] := 'Chekhov anton Pavlovich';
 	NameDB[2] := 'carl cagan';
 	NameDB[3] := 'Gates bill';
-	NameDB[4] := 'Zorge Richard';
+	NameDB[4] := 'gates bill';
+	NameDB[5] := 'Zorge Richard';
 
 	SetLength(Names, 1);
 	Names[0] := NameDB[0];
 
-	for name in Copy(NameDB, 1, 4) do
+	for name in Copy(NameDB, 1, Length(NameDB)) do
 	begin
 		CapitalizeFirstWords(name);
 		for i := 0 to Length(Names)-1 do
