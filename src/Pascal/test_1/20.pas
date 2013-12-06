@@ -3,7 +3,7 @@ program FixBraces;
 var
 	// S: string = '(1+2*(4-(55-4)-(42+4*(9+2-4/(2+5))-3)))';
 	S: string = '((()(())))';
-	// {{()[()]}}
+	// {{[][()]}}
 	S_fixed: string;
 	i, lvl: integer;
 
