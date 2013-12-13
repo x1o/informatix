@@ -4,6 +4,10 @@ uses
 	crt,
 	sysutils;
 
+const
+	input_fname =  '../../data/olympiad_results_4.txt';
+	output_fname =  '../../data/olympiad_results_processed.txt';
+
 type
 	participant = record 
 		family_name:	string[20];
@@ -51,9 +55,9 @@ end;
 
 begin
 	clrscr();
-	assign(input_file, 'olympiad_results_4.txt');
+	assign(input_file, input_fname);
 	reset(input_file);
-	assign(output_file, 'olympiad_results_processed.txt');
+	assign(output_file, output_fname);
 	rewrite(output_file);
 	
 	readln(input_file, input_str);

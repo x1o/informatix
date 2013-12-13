@@ -7,7 +7,7 @@ var
 	s: string;
 
 begin
-	assign(f, 'Family_names.txt');
+	assign(f, '../../data/Family_names.txt');
 	reset(f);
 	while not(eof(f)) do
 	begin

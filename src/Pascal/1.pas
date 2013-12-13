@@ -20,7 +20,8 @@ begin
 	x := MAXINT;
 	
 	while (x <> 777) do begin
-		if (x < a) then			if (a > b) then
+		if (x < a) then
+			if (a > b) then
 				a := x
 			else
 				b := x
@@ -38,4 +39,5 @@ begin
 	if is_sum_even(a, b) then
 		writeln('even.')
 	else
-		writeln('odd.');end.
+		writeln('odd.');
+end.

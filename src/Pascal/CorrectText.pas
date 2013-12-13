@@ -7,7 +7,7 @@ uses
 const
 	SEPS = [' ', '$', '#', '@'];
 	LINE_WIDTH = 60;
-	input_fname ='text_for_correction.txt';
+	input_fname ='../../data/text_for_correction.txt';
 
 var
 	input_str: string;

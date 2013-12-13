@@ -1,6 +1,9 @@
 { 12.10 }
 program SortNameList;
 
+const
+	input_fname = 'namelist.txt';
+
 uses	Strings,
 	Matrix2D,
 	SysUtils;
@@ -29,7 +32,7 @@ end;
 begin
 	SetLength(NameDB, 0);
 
-	assign(f, 'namelist.txt');
+	assign(f, input_fname);
 	reset(f);
 	while not(eof(f)) do
 	begin

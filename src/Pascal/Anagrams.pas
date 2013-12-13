@@ -13,7 +13,7 @@ var
 begin
 	SetLength(Words, 0);
 
-	assign(f, 'anagrams_dict.txt');
+	assign(f, '../../data/anagrams_dict.txt');
 	reset(f);
 	while not(eof(f)) do
 	begin
