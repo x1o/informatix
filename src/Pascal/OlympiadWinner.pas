@@ -1,22 +1,53 @@
 program OlympiadWinner;
 
 uses
-	Strings,
-	Matrix2D,
 	crt,
 	sysutils;
 
+type
+	participant = record 
+		family_name:	string[20];
+		given_name:	string[15];
+		grade:		integer;
+		score:		integer;
+	end;
+
 var
 	i, n, max_score, cur_score, best_candidate, same_score_n: integer;
-	input_file: textfile;
-	output_file: textfile;
+	input_file, output_file: textfile;
 	input_str: string;
-	participant: TStringDynArray;
-	{ FamilyName GivenName Grade Score }
-	P: array of TStringDynArray;
+	P: array of participant;
 	candidates, winners: array of integer;
 	winners_s: set of byte;
 
+procedure PrintPartic(p: participant);
+begin
+	writeln(p.family_name, ' ', p.given_name, ' ', p.grade, ' ', p.score);
+end;
+
+function Split(S: string): participant;
+var
+	Res: participant;
+	i, j, cnt: integer;
+	token: string;
+begin
+	cnt := 0;
+	j := 1;
+	for i := 1 to Length(S) do
+		if (S[i] = ' ') then
+		begin
+			token := Copy(S, j, i-j);
+			case cnt of
+				0: Res.family_name := token;
+				1: Res.given_name := token;
+				2: Res.grade := StrToInt(token);
+			end;
+			j := i+1;
+			Inc(cnt);
+		end;
+	Res.score := StrToInt(Copy(S, j, i-j+1)); { at the end of the string }
+	Split := Res;
+end;
 
 begin
 	clrscr();
@@ -32,19 +63,18 @@ begin
 	SetLength(candidates, 0);
 	SetLength(winners, 0);
 	max_score := -1;
-	
+
 	for i:=0 to n-1 do
 	begin
 		readln(input_file, input_str);
-		participant := Split(input_str, ' ');
-		P[i] := participant;
+		P[i] := Split(input_str);
 	end;
-	
+
 	close(input_file);
-	
+
 	for i:=0 to n-1 do
 	begin
-		cur_score := StrToInt(P[i][3]);
+		cur_score := P[i].score;
 		if cur_score < max_score then
 			continue;
 		if cur_score = max_score then
@@ -64,7 +94,7 @@ begin
 	writeln('Candidates:');
 	for i:=0 to Length(candidates)-1 do
 	begin
-		PrintArray(P[candidates[i]], ' ');
+		PrintPartic(P[candidates[i]]);
 		writeln();
 	end;
 
@@ -77,28 +107,17 @@ begin
 	writeln('Winners:');
 	for i:=0 to Length(winners)-1 do
 	begin
-		PrintArray(P[winners[i]], ' ');
+		PrintPartic(P[winners[i]]);
 		writeln();
 		Include(winners_s, winners[i]);
 	end;
 
-	{
-	if Length(winners) = 0 then
-	begin
-		writeln('No winners');
-		writeln('Number of participants: ', n);
-		write(output_file, n);
-		close(output_file);
-		exit;
-	end;
-	}
-	
 	same_score_n := 0;
 	max_score := -1;
 	for i:=0 to Length(P)-1 do
 		if not (i in winners_s) then
 		begin
-			cur_score := StrToInt(P[i][3]);
+			cur_score := P[i].score;
 			if cur_score = max_score then
 			begin
 				same_score_n := same_score_n + 1;
@@ -114,14 +133,14 @@ begin
 	if same_score_n <> 0 then
 	begin
 		writeln(same_score_n + 1, ' people with the same score');
-		write(output_file, same_score_n + 1);
+		writeln(output_file, same_score_n + 1);
 	end
 	else
 		begin
 			write('Best non-winner: ');
-			write(P[best_candidate][0], ' ', P[best_candidate][1]);
-			write(output_file, P[best_candidate][0], ' ', P[best_candidate][1]);
+			writeln(output_file, P[best_candidate].family_name, ' ', P[best_candidate].given_name);
+			writeln(P[best_candidate].family_name, ' ', P[best_candidate].given_name);
 		end;
 
-close(output_file);
-end.
+	close(output_file);
+end.
