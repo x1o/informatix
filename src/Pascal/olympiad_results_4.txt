@@ -1,4 +1,0 @@
-3
-Ivanov Ivan 1 100
-Petrov Sergey 2 301
-Sidorov Anton 3 100
