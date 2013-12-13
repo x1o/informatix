@@ -7,33 +7,15 @@ var
 	s: string;
 
 begin
-	assign(f, 'Family_names.lst');
-	rewrite(f);
-
-	write('Введите количество учащихся: ');
-	readln(n);
-
-	for i:=1 to n do
-	begin
-		writeln('Введите фамилию:');
-		readln(s);
-		write(f, s);
-		{ write(f, #10); }
-	end;
-
-	close(f); 
-	reset(f); 
-
-	writeln;
-	writeln('Список учащихся:');
-
+	assign(f, 'Family_names.txt');
+	reset(f);
 	while not(eof(f)) do 
-	begin 
+	begin
 		read(f, s); 
-		write('* (', s[1], ') ');
-		writeln(Length(s));
-		{ if s[1] <> 'Ш' then  }
-		if s[1] <> 'Z' then 
+		{ write('* (', s[1], ') '); }
+		{ writeln(Length(s)); }
+		{ if s[1] <> '�' then }
+		if s[1] <> 'z' then
 			writeln(s)
 	end;
 

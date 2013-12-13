@@ -60,5 +60,10 @@ begin
 			Names := ArrayInsert(Names, i+1, name);
 	end;
 
-	PrintArray(Names);
+	for i:=Low(Names) to High(Names) do
+	begin
+		write(Names[i]);
+		writeln();
+	end;
+		
 end.
