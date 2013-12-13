@@ -15,9 +15,9 @@ type
 	MatrixTuple = array [0..1] of RealMatrix;
 
 
-procedure PrintArray(A: array of LongInt; sep: string = #10);
-procedure PrintArray(A: TStringDynArray; sep: string = #10);
-procedure PrintArray(A: array of real; sep: string = #10);
+procedure PrintArray(A: array of LongInt; sep: string = LineEnding);
+procedure PrintArray(A: TStringDynArray; sep: string = LineEnding);
+procedure PrintArray(A: array of real; sep: string = LineEnding);
 procedure Print2DMatrix(A: Matrix; sep: string = ' ');
 procedure Print2DMatrix(A: RealMatrix; sep: string = ' ');
 function Gen2DMatrix(m: integer = 3; n: integer = 0; RMax: integer = 10): Matrix;
@@ -44,7 +44,7 @@ implementation
 uses
 	crt;
 
-procedure PrintArray(A: TStringDynArray; sep: string = #10); overload;
+procedure PrintArray(A: TStringDynArray; sep: string = LineEnding); overload;
 var
 	i: integer;
 begin
@@ -53,7 +53,7 @@ begin
 	{ writeln(''); }
 end;
 
-procedure PrintArray(A: array of LongInt; sep: string = #10); overload;
+procedure PrintArray(A: array of LongInt; sep: string = LineEnding); overload;
 var
 	i, d: integer;
 begin
@@ -65,7 +65,7 @@ begin
 	writeln('');
 end;
 
-procedure PrintArray(A: array of real; sep: string = #10); overload;
+procedure PrintArray(A: array of real; sep: string = LineEnding); overload;
 var
 	i: integer;
 begin

@@ -15,6 +15,7 @@ function Tl(S: string): string;
 function Precedes(S: string; T: string): boolean;
 procedure CapitalizeFirstWords(var S: string);
 function Reversed(S: string): string;
+function Includes(S: string; ch: char): boolean;
 
 
 
@@ -146,6 +147,16 @@ begin
 		T[Length(S)+1-i] := S[i];
 	end;
 	Reversed := T;
+end;
+
+function Includes(S: string; ch: char): boolean;
+var
+	ch_i: char;
+begin
+	for ch_i in S do
+		if ch_i = ch then
+			exit(true);
+	exit(false);
 end;
 
 end.

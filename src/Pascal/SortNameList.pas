@@ -6,13 +6,12 @@ uses	Strings,
 	SysUtils;
 
 var
-	{ F: file of string; }
-	F: text;
+	f: textfile;
 	S: string;
 	NameDB: TStringDynArray;
 	Names: TStringDynArray;
 	name: string;
-	i: integer;
+	i, l: integer;
 
 { Ideally this would be a procedure,
   but for an unknown reason it doesn't work this way. }
@@ -28,22 +27,18 @@ begin
 end;
 
 begin
-	{ assign(F, 'family_names_list_win.txt'); }
-	{ reset(F); }
-	{ while not eof(F) do }
-	{ begin }
-		{ read(F, S); }
-		{ writeln(S); }
-	{ end; }
-	{ close(F); }
+	SetLength(NameDB, 0);
 
-	SetLength(NameDB, 6);
-	NameDB[0] := 'Smith John';
-	NameDB[1] := 'Chekhov anton Pavlovich';
-	NameDB[2] := 'carl cagan';
-	NameDB[3] := 'Gates bill';
-	NameDB[4] := 'gates bill';
-	NameDB[5] := 'Zorge Richard';
+	assign(f, 'namelist.txt');
+	reset(f);
+	while not(eof(f)) do
+	begin
+		readln(f, S);
+		l := Length(NameDB);
+		SetLength(NameDB, l+1);
+		NameDB[l] := S;
+	end;
+	close(f);
 
 	SetLength(Names, 1);
 	Names[0] := NameDB[0];

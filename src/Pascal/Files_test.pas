@@ -3,7 +3,7 @@ program PrintFamilyNameNotSh;
 var
 	i, n: integer;
 	{ f: file of string; }
-    f: textfile;
+	f: textfile;
 	s: string;
 
 begin
@@ -20,6 +20,5 @@ begin
 	end;
 
 	close(f);
-    writeln('end');
 	readln();
 End.

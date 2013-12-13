@@ -6,16 +6,23 @@ uses Strings;
 var
 	Words: TStringDynArray;
 	Matched_ids: set of byte;
-	i, j: integer;
+	i, j, l: integer;
+	f: textfile;
+	cur_word: string;
 
 begin
-	SetLength(Words, 6);
-	Words[0] := 'Hello';
-	Words[1] := 'Queen';
-	Words[2] := 'Drawer';
-	Words[3] := 'Olleh';
-	Words[4] := 'Reward';
-	Words[5] := 'Fish';
+	SetLength(Words, 0);
+
+	assign(f, 'anagrams_dict.txt');
+	reset(f);
+	while not(eof(f)) do
+	begin
+		readln(f, cur_word);
+		l := Length(Words);
+		SetLength(Words, l+1);
+		Words[l] := cur_word;
+	end;
+	close(f);
 
 	for i := 0 to length(Words)-1 do
 		writeln(i, ': ', Words[i]);
