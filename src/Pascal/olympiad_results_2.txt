@@ -1,0 +1,6 @@
+5
+Ivanov Ivan 1 100
+Petrov Sergey 2 290
+Sidorov Anton 3 200
+Kuznetsov Ilya 2 150
+Smirnov Kolya 3 203
