@@ -1,13 +1,14 @@
 { 12.10 }
 program SortNameList;
 
-const
-	input_fname = 'namelist.txt';
-
-uses	Strings,
+uses
+	Strings,
 	Matrix2D,
 	SysUtils;
 
+const
+	input_fname = '../../data/namelist.txt';
+	
 var
 	f: textfile;
 	S: string;
