@@ -71,7 +71,7 @@ procedure MoveP(var px: Pegs; from_p: integer; idx: Disk; to_p: integer);
 var
 	other_p: 1..3;
 begin
-	{ ShowPegs(px); }
+	ShowPegs(px);
 	if idx = peek(px[from_p]) then
 		push(px[to_p], pop(px[from_p]))
 	else
