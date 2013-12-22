@@ -1,5 +1,8 @@
 program FixBraces;
 
+uses
+	crt;
+
 type
 	AAI = array of array of integer;
 	AI  = array of integer;
@@ -52,6 +55,9 @@ begin
 end;
 
 begin
+	ClrScr();
+	writeln('Changing parens');
+	writeln('from ', S);
 	SetLength(ixx, 1);
 	SetLength(ix, 1);
 	ix[0] := 1;
@@ -100,5 +106,5 @@ begin
 			S[ixx[Length(ixx)-lvl-1][i]] := paren;
 		end;
 	
-	writeln(S);
+	writeln('to   ', S);
 end.

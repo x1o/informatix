@@ -73,6 +73,7 @@ begin
 			for j := i + width downto i do
 				if S[j] = ' ' then
 				begin
+					{ S[j] := #13; }
 					S[j] := LineEnding;
 					break;
 				end;
@@ -111,7 +112,10 @@ begin
 		case S[i] of
 			'$': 
 				begin
+					{ AppendCh(T, #13); }
 					AppendCh(T, LineEnding);
+					AppendCh(T, ' ');
+					AppendCh(T, ' ');
 					i := i + 1;
 				end;
 			'#': i := GetNextWordIdx(S, i);
@@ -123,7 +127,8 @@ begin
 				end;
 		end;
 	
-	assign(f, Split(input_fname, '.')[0]+'_corrected.txt');
+	{ assign(f, Split(input_fname, '.')[0]+'_corrected.txt'); }
+	assign(f, 'text_corrected.txt');
 	rewrite(f);
 
 	i := 1;
