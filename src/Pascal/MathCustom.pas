@@ -6,6 +6,7 @@ function Factorial(n: integer): integer;
 function Fibonacci(n: integer): integer;
 function FibonacciNaive(n: integer): integer;
 procedure PrintInt(i: integer);
+procedure PrintReal(r: real; n: integer);
 
 
 
@@ -50,6 +51,8 @@ begin
 	exit(FibHelper(n, 0, 0, 0));
 end;
 
+{ The following two procedures are quite pointless and dull. }
+
 { (c) Kostin }
 procedure PrintInt(i: integer);
 procedure B(i: integer);
@@ -72,7 +75,46 @@ begin
 			write('-');
 		B(abs(i));
 	end;
+	writeln();
 end;
 
+{ (c) Kostin }
+procedure PrintReal(r: real; n: integer);
+var
+	r1: real;
+procedure inter(r: real);
+var
+	r1: real;
+begin
+	if r <> 0 then
+	begin
+		r1 := int(r/10);
+		inter(r1);
+		write(char(ord('0') + trunc(r-r1*10)));
+	end;
+end;
+procedure fracter(r: real; n: integer);
+var
+	i: integer;
+begin
+	for i := 1 to n do
+	begin
+		r := r*10;
+		write(char(ord('0') + trunc(r)));
+		r := frac(r);
+	end;
+end;
+begin
+	if r < 0 then
+		write('-');
+	r1 := abs(r);
+	if r1 < 1 then
+		write('0')
+	else
+		inter(int(r1));
+	write('.');
+	fracter(frac(r1), n);
+	writeln();
+end;
 
 end.

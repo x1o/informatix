@@ -3,9 +3,15 @@ program MathCustomTest;
 uses
 	MathCustom;
 
+var
+	x: real;
+
 begin
 	{ writeln(Fibonacci(40)); }
 	{ writeln(FibonacciNaive(40)); }
-	PrintInt(2); writeln();
-	PrintInt(-38); writeln();
+	{ PrintInt(2); }
+	{ PrintInt(-38); }
+	x := -34.21;
+	PrintReal(x, 5);
+	writeln(34.0);
 end.
