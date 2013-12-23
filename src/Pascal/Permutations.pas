@@ -6,7 +6,8 @@ program Permutations;
 { Code reuse?  Never heard. }
 
 uses
-	crt;
+	crt,
+	LinkedList;
 
 const
 	N = 5;
@@ -17,7 +18,6 @@ type
 	TPermC		= array [1..N] of -N..N;
 	TPermK		= array [1..N] of 1..N; { K for Kanonical! }
 	TInvArr		= array [1..N] of 0..(N-1);
-	TLinkedList	= array [0..N] of 0..N;
 
 var
 	a: TBoolArr;
@@ -478,41 +478,6 @@ begin
 	exit(p);
 end;
 
-procedure PrintLL(ll: TLinkedList);
-var
-	i: 0..N;
-begin
-	i := 0;
-	while ll[i] <> 0 do
-	begin
-		write(ll[i]);
-		if ll[ll[i]] <> 0 then { ||||| }
-			write(' -> ');
-		i := ll[i];
-	end;
-	writeln();
-end;
-
-procedure InsertLL(var ll: TLinkedList; el: integer; after_el: integer);
-begin
-	ll[el] := ll[after_el];
-	ll[after_el] := el;
-end;
-
-function GetNthLL(ll: TLinkedList; m: integer): integer;
-var
-	i, k: 0..N;
-begin
-	k := 0;
-	i := 0;
-	while i < m do
-	begin
-		k := ll[k];
-		i := i + 1;
-	end;
-	exit(k);
-end;
-
 function InvArr2Nat_2(r: TInvArr): TPermN;
 var
 	ll: TLinkedList;
@@ -694,19 +659,19 @@ begin
 	{ PrintPermN(s); }
 
 	{ --- Misc --- }
-	{ PrintLL(ll); }
-	{ InsertLL(ll, 1, 4); }
-	{ PrintLL(ll); }
-	{ for i:=0 to N do }
-		{ ll[i] := 0; }
-	{ InsertLL(ll, 5, 0); }
-	{ PrintLL(ll); }
-	{ InsertLL(ll, 4, 0); }
-	{ PrintLL(ll); }
-	{ InsertLL(ll, 3, 2); }
-	{ PrintLL(ll); }
-	{ writeln(GetNthLL(ll, 1)); }
-	{ writeln(GetNthLL(ll, 2)); }
-	{ writeln(GetNthLL(ll, 3)); }
-	{ writeln(GetNthLL(ll, 4)); }
+	PrintLL(ll);
+	InsertLL(ll, 1, 4);
+	PrintLL(ll);
+	for i:=0 to N do
+		ll[i] := 0;
+	InsertLL(ll, 5, 0);
+	PrintLL(ll);
+	InsertLL(ll, 4, 0);
+	PrintLL(ll);
+	InsertLL(ll, 3, 2);
+	PrintLL(ll);
+	writeln(GetNthLL(ll, 1));
+	writeln(GetNthLL(ll, 2));
+	writeln(GetNthLL(ll, 3));
+	writeln(GetNthLL(ll, 4));
 end.
