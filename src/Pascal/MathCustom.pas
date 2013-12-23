@@ -5,6 +5,7 @@ interface
 function Factorial(n: integer): integer;
 function Fibonacci(n: integer): integer;
 function FibonacciNaive(n: integer): integer;
+procedure PrintInt(i: integer);
 
 
 
@@ -48,5 +49,30 @@ end;
 begin
 	exit(FibHelper(n, 0, 0, 0));
 end;
+
+{ (c) Kostin }
+procedure PrintInt(i: integer);
+procedure B(i: integer);
+var
+	i1: integer;
+begin
+	if i <> 0 then
+	begin
+		i1 := i mod 10;
+		B(i div 10);
+		write(char(ord('0') + i1));
+	end;
+end;
+begin
+	if i = 0 then
+		write ('0')
+	else
+	begin
+		if i < 0 then
+			write('-');
+		B(abs(i));
+	end;
+end;
+
 
 end.
