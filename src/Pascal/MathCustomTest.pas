@@ -11,7 +11,7 @@ begin
 	{ writeln(FibonacciNaive(40)); }
 	{ PrintInt(2); }
 	{ PrintInt(-38); }
-	x := -34.21;
-	PrintReal(x, 5);
-	writeln(34.0);
+	{ x := -34.21; }
+	PrintReal(34.21, 5);
+	{ writeln(34.0); }
 end.

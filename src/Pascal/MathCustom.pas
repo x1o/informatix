@@ -5,8 +5,8 @@ interface
 function Factorial(n: integer): integer;
 function Fibonacci(n: integer): integer;
 function FibonacciNaive(n: integer): integer;
-procedure PrintInt(i: integer);
-procedure PrintReal(r: real; n: integer);
+procedure PrintInt(n: integer);
+procedure PrintReal(x: real; n: integer);
 
 
 
@@ -54,67 +54,111 @@ end;
 { The following two procedures are quite pointless and dull. }
 
 { (c) Kostin }
-procedure PrintInt(i: integer);
-procedure B(i: integer);
-var
-	i1: integer;
-begin
-	if i <> 0 then
-	begin
-		i1 := i mod 10;
-		B(i div 10);
-		write(char(ord('0') + i1));
-	end;
-end;
-begin
-	if i = 0 then
-		write ('0')
-	else
-	begin
-		if i < 0 then
-			write('-');
-		B(abs(i));
-	end;
-	writeln();
-end;
+{ procedure PrintInt(i: integer); }
+{ procedure B(i: integer); }
+{ var }
+	{ i1: integer; }
+{ begin }
+	{ if i <> 0 then }
+	{ begin }
+		{ i1 := i mod 10; }
+		{ B(i div 10); }
+		{ write(char(ord('0') + i1)); }
+	{ end; }
+{ end; }
+{ begin }
+	{ if i = 0 then }
+		{ write ('0') }
+	{ else }
+	{ begin }
+		{ if i < 0 then }
+			{ write('-'); }
+		{ B(abs(i)); }
+	{ end; }
+	{ writeln(); }
+{ end; }
 
 { (c) Kostin }
-procedure PrintReal(r: real; n: integer);
-var
-	r1: real;
-procedure inter(r: real);
-var
-	r1: real;
+{ procedure PrintReal(r: real; n: integer); }
+{ var }
+	{ r1: real; }
+{ procedure inter(r: real); }
+{ var }
+	{ r1: real; }
+{ begin }
+	{ if r <> 0 then }
+	{ begin }
+		{ r1 := int(r/10); }
+		{ inter(r1); }
+		{ write(char(ord('0') + trunc(r-r1*10))); }
+	{ end; }
+{ end; }
+{ procedure fracter(r: real; n: integer); }
+{ var }
+	{ i: integer; }
+{ begin }
+	{ for i := 1 to n do }
+	{ begin }
+		{ r := r*10; }
+		{ write(char(ord('0') + trunc(r))); }
+		{ r := frac(r); }
+	{ end; }
+{ end; }
+{ begin }
+	{ writeln(r); }
+	{ if r < 0 then }
+		{ write('-'); }
+	{ r1 := abs(r); }
+	{ if r1 < 1 then }
+		{ write('0') }
+	{ else }
+		{ inter(int(r1)); }
+	{ write('.'); }
+	{ fracter(frac(r1), n); }
+	{ writeln(); }
+{ end; }
+
+procedure PrintInt(n: integer);
+procedure PrintD(n: integer);
 begin
-	if r <> 0 then
+	write(char(ord('0') + n));
+end;
+var
+	d: integer;
+begin
+	if n < 0 then
 	begin
-		r1 := int(r/10);
-		inter(r1);
-		write(char(ord('0') + trunc(r-r1*10)));
+		write('-');
+		n := Abs(n);
+	end;
+	d := n div 10;
+	if d = 0 then
+		PrintD(n mod 10)
+	else
+	begin
+		PrintInt(d);
+		PrintD(n mod 10);
 	end;
 end;
-procedure fracter(r: real; n: integer);
+
+procedure PrintReal(x: real; n: integer);
+procedure PrintFrac(x: real; n: integer);
 var
 	i: integer;
 begin
-	for i := 1 to n do
+	writeln(x);
+	for i:=1 to n do
 	begin
-		r := r*10;
-		write(char(ord('0') + trunc(r)));
-		r := frac(r);
+		x := x * 10;
+		write(char(ord('0') + trunc(x)));
+		x := frac(x);
 	end;
 end;
 begin
-	if r < 0 then
-		write('-');
-	r1 := abs(r);
-	if r1 < 1 then
-		write('0')
-	else
-		inter(int(r1));
+	PrintInt(trunc(x));
 	write('.');
-	fracter(frac(r1), n);
-	writeln();
+	x := Abs(x);
+	PrintFrac(frac(x), n);
 end;
 
 end.
