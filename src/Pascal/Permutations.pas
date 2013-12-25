@@ -229,7 +229,7 @@ begin
 end;
 
 { operator * (p: TPermN; g: TPermC) f: TPermN;	overload; }
-{ g o f -- LTR, f first }
+{ f o g -- LTR, f first }
 procedure o(var f: TPermN; var g: TPermC);
 var
 	i, j, k, s: 0..N;
@@ -614,9 +614,9 @@ begin
 	{ PrintPermC(t); }
 	{ inv(t); }
 	{ PrintPermC(t); }
-	PrintPermN(r);
-	PrintInvArr(b);
-	c := InvArrInverse(b);
+	{ PrintPermN(r); }
+	{ PrintInvArr(b); }
+	{ c := InvArrInverse(b); }
 	{ PrintInvArr(c); }
 	{ PrintPermN(r); }
 	{ r := -r; }
@@ -659,19 +659,35 @@ begin
 	{ PrintPermN(s); }
 
 	{ --- Misc --- }
-	PrintLL(ll);
-	InsertLL(ll, 1, 4);
-	PrintLL(ll);
-	for i:=0 to N do
-		ll[i] := 0;
-	InsertLL(ll, 5, 0);
-	PrintLL(ll);
-	InsertLL(ll, 4, 0);
-	PrintLL(ll);
-	InsertLL(ll, 3, 2);
-	PrintLL(ll);
-	writeln(GetNthLL(ll, 1));
-	writeln(GetNthLL(ll, 2));
-	writeln(GetNthLL(ll, 3));
-	writeln(GetNthLL(ll, 4));
+	ll[0] := 0;
+	ll[1] := 0;
+	ll[2] := 0;
+	ll[3] := 0;
+	ll[4] := 0;
+	ll[5] := 0;
+
+	{ r[1] := 2; }
+	{ r[2] := 3; }
+	{ r[3] := 2; }
+	{ r[4] := 0; }
+	{ r[5] := 0; }
+	{ for i:=N downto 1 do }
+		{ InsertLL(ll, i, GetNthLL(ll, r[i])); }
+	{ PrintLL(ll); }
+
+	{ writeln(GetNthLL(ll, 1)); }
+	{ InsertLL(ll, 1, 5); }
+	{ PrintLL(ll); }
+	{ for i:=0 to N do }
+		{ ll[i] := 0; }
+	{ InsertLL(ll, 5, 0); }
+	{ PrintLL(ll); }
+	{ InsertLL(ll, 4, 0); }
+	{ PrintLL(ll); }
+	{ InsertLL(ll, 3, 2); }
+	{ PrintLL(ll); }
+	{ writeln(GetNthLL(ll, 1)); }
+	{ writeln(GetNthLL(ll, 2)); }
+	{ writeln(GetNthLL(ll, 3)); }
+	{ writeln(GetNthLL(ll, 4)); }
 end.
