@@ -4,9 +4,29 @@ uses
 	Graph,
 	Math;
 
+const
+	n = 6;
+	r = 70;
+	x_c = 0;
+	y_c = 0;
+
 var
-	gd, gm, x_c, y_c, n, dx, dy, i, j: integer; 
-	r: real;
+	gd, gm, dx, dy, i, j: integer; 
+
+function CompPhi(n: integer): real;
+begin
+	exit((360 / n) * pi / 180);
+end;
+
+function CompDx(n: integer; r: real): integer;
+begin
+	exit(Round(r * cos(CompPhi(n)/2)));
+end;
+
+function CompDy(n: integer; r: real): integer;
+begin
+	exit(Round(r + sqrt(Power(r, 2) - Power(CompDx(n, r), 2))));
+end;
 
 procedure DrawPolygon(x_c, y_c, n: integer; r: real);
 var
@@ -14,8 +34,7 @@ var
 	phi: real;
 	pt: PointType;
 begin
-	phi := (360 / n) * pi / 180;
-
+	phi := CompPhi(n);
 	pt.x := x_c + Round(r * cos(pi/2));
 	pt.y := y_c + Round(r * sin(pi/2));
 
@@ -29,9 +48,12 @@ begin
 	end;
 
 	Randomize();
-	{ if GetMaxX - x_c < 0 then }
-		{ x_c := x_c - Round(r * cos(((360 / n) * pi / 180)/2)) + 1; }
-	{ if GetMaxY - y_c }
+	if (GetMaxX - x_c < 0) and (GetMaxY - y_c < 0) then
+		exit();
+	if GetMaxX - x_c < 0 then
+		x_c := x_c - CompDx(n, r) + 1;
+	if GetMaxY - y_c < 0 then
+		y_c := y_c - CompDy(n, r) + 1;
 	SetFillStyle(SolidFill, Random(15));
 	FloodFill(x_c, y_c, white);
 end;
@@ -39,15 +61,10 @@ end;
 begin
 	gd := detect;
 	InitGraph(gd, gm, ''); 
-	x_c := 300;
-	y_c := 200;
-	n := 6;
-	r := 100;
-	dx := Round(r * cos(((360 / n) * pi / 180)/2));
-	dy := Round(r + sqrt(Power(r, 2) - Power(dx, 2)));
 
-	x_c := 0;
-	y_c := 0;
+	dx := CompDx(n, r);
+	dy := CompDy(n, r);
+
 	i := 0;
 	j := 0;
 	{ while y_c + dy/2*j <= GetMaxY do }
@@ -63,6 +80,5 @@ begin
 		j := j + 1;
 	end;
 
-	{ DrawPolygon(x_c + dx, y_c + dy, n, r); }
 	readln();
 end.
