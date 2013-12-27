@@ -1,3 +1,5 @@
+{ (c) mostly by Dima S. }
+
 program LZW;
 
 const

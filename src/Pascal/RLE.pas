@@ -1,3 +1,5 @@
+{ (c) mostly by Dima S. }
+
 program RLE;
 
 var 
@@ -17,13 +19,13 @@ begin
 			if i = Length(s)-1 then
 			begin
 				if s[length(s)] = s[length(s)-1] then
-					write(reps + 1, s[i])
+					write(s[i], reps + 1)
 				else
-					write(reps, s[i], 1, s[i+1]);
+					write(s[i], reps, s[i+1], 1);
 			end
 			else
 			begin
-				write(reps, s[i]);
+				write(s[i], reps);
 				reps := 1;
 			end;
 		end;

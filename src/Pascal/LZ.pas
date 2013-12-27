@@ -1,3 +1,5 @@
+{ (c) mostly by Dima S. }
+
 program LZ;
 
 var
@@ -33,7 +35,7 @@ begin
 		begin
 			for j:=1 to jm do
 				if a[j] = km then
-					write(j, s[i], ' ');
+					write('(', j, ',', s[i], ')', ' ');
 			a[jm] := k;
 			k := '';
 			jm := jm + 1;
@@ -45,6 +47,7 @@ end;
 
 begin 
 	writeln('String to encode:');
+	{ Try "kassasobakabakkabakas" }
 	readln(s);
 	writeln('Encoded string:');
 	Encode(s);
