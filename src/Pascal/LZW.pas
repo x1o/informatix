@@ -1,56 +1,72 @@
-{ (c) mostly by Dima S. }
-
 program LZW;
 
+{ WARNING: No collision handling of the hash function }
+
 const
-	N = 100;
+	DICT_LEN = 10000;
+
+type
+	assoc_array = array [0..DICT_LEN-1] of integer;
+
+function FNV1aHash(const s: AnsiString): LongWord;
+var
+    i: Integer;
+const
+    FNV_offset_basis = 2166136261;
+    FNV_prime = 16777619;
+begin
+    Result := FNV_offset_basis;
+    for i := 1 to Length(s) do
+        Result := (Result xor Byte(s[i])) * FNV_prime;
+end;
 
 var
 	s: string;
-	lz: array [1..N] of string;
+
+procedure add(var dict: assoc_array; key: string; value: integer);
+begin
+	dict[FNV1aHash(key) mod DICT_LEN] := value;
+end;
+
+function get(dict: assoc_array; key: string): integer;
+begin
+	exit(dict[FNV1aHash(key) mod DICT_LEN]);
+end;
 
 procedure Encode(s: string);
+{ Ideally should be returning the encoded string and the corresponding dictionary }
 var
-	l1, i, j, k, tmp, max: integer;
-	L: array [1..N] of string;
-	a: string;
+	D: assoc_array;
+	i, j, last_n: integer;
 begin
-	l1 := length(s);
-	max := 1;
+	{ All entries in D are 0's by default }
+	for i:=ord(' ') to ord('~') do
+		add(D, char(i), i - ord(' '));
+
+	last_n := i - ord(' ');
+
 	i := 1;
-	tmp := 1;
-	for k := 1 to l1 do
+	j := 2;
+	while (i + j) <= Length(s)+1 do
 	begin
-		a := Copy(s, k, 1);
-		for j := 1 to i do
+		if get(D, Copy(s, i, j)) = 0 then
 		begin
-			if (L[j] = a) then
-			begin
-				if (k + tmp <= l1) then
-				begin
-					a := Copy(s, k, 1 + tmp);
-					tmp := tmp + 1;
-				end
-				else
-					tmp := 0;
-			end;
-		end;
-		if tmp >= max then
-		begin
-			max := tmp;
-			L[i] := a;
-			i := i + 1;
-		end;
-		tmp := 1;
+			write(get(D, Copy(s, i, j-1)), '(', Copy(s, i, j-1), ') ');
+			Inc(last_n);
+			add(D, Copy(s, i, j), last_n);
+			i := i + j-1;
+			j := 2;
+		end
+		else
+			Inc(j);
 	end;
-	i := i - 1;
-	for j := 1 to i do
-		write(j:4, L[j]);
+	write(get(D, Copy(s, i, j)), '(', Copy(s, i, j), ') ');
+	writeln();
 end;
 
 begin
-	writeln('String to encode:');
+	{ s := 'ABCABCABCABCABCABC'; }
+	write('Input a string to compress: ');
 	readln(s);
-	writeln('Encoded string:');
 	Encode(s);
 end.
