@@ -14,7 +14,7 @@ var
 	gd, gm, n, dx, dy: integer;
 	parent: PointType;
 
-procedure DrawLine(parent: PointType; cur_level, dx, dy: integer);
+procedure DrawV(parent: PointType; cur_level, dx, dy: integer);
 var
 	left, right: PointType;
 begin
@@ -29,8 +29,8 @@ begin
 	Line(parent.x, parent.y, left.x, left.y);
 	Line(parent.x, parent.y, right.x, right.y);
 
-	DrawLine(left, cur_level - 1, dx, dy);
-	DrawLine(right, cur_level - 1, dx, dy);
+	DrawV(left, cur_level - 1, dx, dy);
+	DrawV(right, cur_level - 1, dx, dy);
 end;
 
 begin
@@ -46,7 +46,7 @@ begin
 	parent.x := Round(GetMaxX / 2);
 	parent.y := Round(GetMaxY / 2 - n * dy / 2);
 
-	DrawLine(parent, n, dx, dy);
+	DrawV(parent, n, dx, dy);
 
 	readln();
 	CloseGraph();
