@@ -27,17 +27,19 @@ namespace fracn_zd
 				return GCD(n, m % n);
 		}
 
-		public void Simplify()
+		public Frac Simplify()
 		{
 			int gcd = GCD(m, n);
 			m /= gcd;
 			n /= gcd;
+			return this;
 		}
 
 		public string Repr()
 		{
 			return String.Format("{0}/{1}", m, n);
 		}
+
 	}
 
 
@@ -54,8 +56,9 @@ m - целое, n - целое без знака.
 		{
 			Console.Write("Введите через пробел m n (0 0 -- конец): ");
 			try {
-				string[] input = Console.ReadLine().Split();	// begs for a Convert lambda mapping...
-				return new Frac(Convert.ToInt32(input[0]), Convert.ToInt32(input[1]));
+				string[] input = Array.ForEach(Console.ReadLine().Split(),
+				                               word => Convert.ToInt32(word));
+				return new Frac(input[0], input[1]);
 			} catch {
 				Console.WriteLine("Ошибка ввода.");
 				return GetFrac();
@@ -65,9 +68,7 @@ m - целое, n - целое без знака.
 
 		public static void PutFrac(Frac f)
 		{
-			string OldVal = f.Repr();
-			f.Simplify();
-			Console.WriteLine("  " + OldVal + " = " + f.Repr());
+			Console.WriteLine("  " + f.Repr() + " = " + f.Simplify().Repr());
 		}
 
 		public static void Main(string[] args)
@@ -80,6 +81,7 @@ m - целое, n - целое без знака.
 				PutFrac(f);
 				f = GetFrac();
 			}
+			Console.WriteLine(f);
 			Console.WriteLine("Выполнение закончено");
 		}
 	}
