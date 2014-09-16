@@ -10,40 +10,43 @@ using System.IO;
 
 namespace frac2_zd
 {
-    class Frac
+    public class Frac
     {
-        public int m, n;
+        public int Num, Denom;
 
-        public Frac(int m_, int n_)
+        public Frac(int Num_, int Denom_)
         {
-            m = m_;
-            n = n_;
+            if (Denom_ < 0) {
+                throw new Exception("Denominator cannot be negative");
+            }
+            Num = Num_;
+            Denom = Denom_;
         }
 
         public static int GCD(int m, int n)
         {
             if (n == 0)
-                return m;
+                return Math.Abs(m);
             else
                 return GCD(n, m % n);
         }
 
         public Frac Simplify()
         {
-            int gcd = GCD(m, n);
-            m /= gcd;
-            n /= gcd;
+            int gcd = GCD(Num, Denom);
+            Num /= gcd;
+            Denom /= gcd;
             return this;
         }
 
         public string Repr()
         {
-            return String.Format("{0}/{1}", m, n);
+            return String.Format("{0}/{1}", Num, Denom);
         }
     }
 
 
-    class MainClass
+    public class MainClass
     {
         public const string annotation = @"frac2_zd.cs        Зотиков Д.Ю. сентябрь 2014
 
@@ -56,14 +59,23 @@ m - целое, n - целое без знака.
         {
             Console.Write("Введите через пробел m n (0 0 -- конец): ");
             try {
-                string[] input = Console.ReadLine().Split();    // really begs for a Converse lambda mapping...
-                return new Frac(Convert.ToInt32(input[0]),
-                                Convert.ToInt32(input[1]));
+                return SetFrac(Console.ReadLine());
             } catch {
                 Console.WriteLine("Ошибка ввода.");
                 return GetFrac();
             }
 
+        }
+
+        public static Frac SetFrac(string input_str)
+        {
+            try {
+                string[] F = input_str.Split();
+                return new Frac(Convert.ToInt32(F[0]),
+                                Convert.ToInt32(F[1]));
+            } catch {
+                throw new Exception("Invalid input");
+            }
         }
 
         public static void PutFrac(Frac f, StreamWriter OutFile)
@@ -74,8 +86,7 @@ m - целое, n - целое без знака.
             Console.WriteLine("  " + OutStr);
         }
 
-
-        public static int Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine(annotation);
 
@@ -87,16 +98,13 @@ m - целое, n - целое без знака.
                 return -1;
             }
 
-            Frac f;
-            f = GetFrac();
-            while (f.m != 0 || f.n != 0) {
+            Frac f = GetFrac();
+            while (f.Num != 0 || f.Denom != 0) {
                 PutFrac(f, OutFile);
                 f = GetFrac();
             }
             Console.WriteLine("Выполнение закончено");
-
             OutFile.Close();
-            return 0;
         }
     }
 }
