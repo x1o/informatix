@@ -83,15 +83,15 @@ m - целое, n - целое без знака.
         }
 
         public static void Main(string[] args)
-		{
-			Console.WriteLine(annotation);
+        {
+            Console.WriteLine(annotation);
 
-			Frac f = GetFrac();
-			while (f.Num != 0 || f.Denom != 0) {
-				PutFrac(f);
-				f = GetFrac();
-			}
-			Console.WriteLine("Выполнение закончено");
-		}
+            Frac f = GetFrac();
+            while (f.Num != 0 || f.Denom != 0) {
+                PutFrac(f);
+                f = GetFrac();
+            }
+            Console.WriteLine("Выполнение закончено");
+        }
     }
 }
